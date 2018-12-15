@@ -5,10 +5,10 @@ import stableStringify from 'json-stable-stringify';
 import { GraphQLSchema } from 'graphql/type';
 import { createHash } from 'crypto';
 
-export function generateSchemaHash(schema: GraphQLSchema): string {
+export async function generateSchemaHash(schema: GraphQLSchema): string {
   const introspectionQuery = getIntrospectionQuery();
   const documentAST = parse(introspectionQuery);
-  const result = execute(schema, documentAST) as ExecutionResult;
+  const result = await execute(schema, documentAST) as ExecutionResult;
 
   // If the execution of an introspection query results in a then-able, it
   // indicates that one or more of its resolvers is behaving in an asynchronous
